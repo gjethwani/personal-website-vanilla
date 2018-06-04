@@ -16,8 +16,8 @@ body {
 	width: 100%;
 	height: 16rem;
 	height: 100vh;
-	z-index: 1;
-	/* -webkit-animation: fadein 2s; 
+	z-index: 0;
+	/* -webkit-animation: fadein 2s;
 		 -moz-animation: fadein 2s;
 			-ms-animation: fadein 2s;
 			 -o-animation: fadein 2s;

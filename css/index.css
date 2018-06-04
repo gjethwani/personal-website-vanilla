@@ -6,6 +6,7 @@
   top: 15%;
   left: 15%;
   border-radius: 10px;
+  z-index: 1;
   /* -webkit-animation: fadein 4s;
      -moz-animation: fadein 4s;
       -ms-animation: fadein 4s;
@@ -48,6 +49,8 @@
 .nav-text {
   vertical-align: middle;
   margin-bottom: 0px;
+  cursor: default;
+  color: white;
 }
 
 @keyframes fadein {

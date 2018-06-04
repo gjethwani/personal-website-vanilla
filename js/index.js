@@ -18,8 +18,7 @@ window.onload = function() {
   fadeIn(container, 0.5);
 }
 
-function changeNavSelection() {
-  console.log('hello');
+function changeNavSelection(selectedElementId) {
   var selectedElement = document.getElementById(selectedElementId);
   var navItems = document.getElementById('nav-bar').children;
   for (var i = 0; i < navItems.length; i++) {
@@ -27,8 +26,3 @@ function changeNavSelection() {
   }
   selectedElement.classList.add('selected-nav-item');
 }
-
-document.getElementById('contact').addEventListener('click', changeNavSelection)
-//  = function() {
-//   return changeNavSelection('contact');
-// }
