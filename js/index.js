@@ -5,7 +5,7 @@ function fadeIn(element, peakOpacity) {
         if (op >= peakOpacity){
             clearInterval(timer);
         }
-        //element.style.opacity = op;
+        element.style.opacity = op;
         element.style.filter = 'alpha(opacity=' + op * 100 + ")";
         op += op * 0.1;
     }, 10);
@@ -15,7 +15,15 @@ window.onload = function() {
   var background = document.getElementById('stars');
   var container = document.getElementById('container');
   fadeIn(background, 1);
-  fadeIn(container, 0.5);
+  setTimeout(fadeIn(container, 1), 10000);
+}
+
+function showSection(sectionId) {
+  var navItems = document.getElementById('nav-bar').children;
+  for (var i = 0; i < navItems.length; i++) {
+    document.getElementById(navItems[i].id + '-info').style.display = 'none';
+  }
+  document.getElementById(sectionId + '-info').style.display = 'table';
 }
 
 function changeNavSelection(selectedElementId) {
@@ -25,4 +33,85 @@ function changeNavSelection(selectedElementId) {
     navItems[i].classList.remove('selected-nav-item');
   }
   selectedElement.classList.add('selected-nav-item');
+  showSection(selectedElementId);
+}
+
+function emailValid(email) {
+  var filter = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  if (!filter.test(email)) {
+    return false;
+  }
+  return true;
+}
+
+function phoneNumberValid(number) {
+  var filter = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/; //https://stackoverflow.com/questions/4338267/validate-phone-number-with-javascript
+  if (!filter.test(number)) {
+    return false;
+  }
+  return true;
+}
+
+function sendContactForm() {
+  document.getElementById('name-errors').style.visibility = 'hidden';
+  document.getElementById('email-errors').style.visibility = 'hidden';
+  document.getElementById('number-errors').style.visibility = 'hidden';
+  document.getElementById('message-errors').style.visibility = 'hidden';
+
+  var nameErrors = "";
+  var emailErrors = "";
+  var numberErrors = "";
+  var messageErrors = "";
+
+  var name = document.getElementById('name-field').value;
+  var email = document.getElementById('email-field').value;
+  var number = document.getElementById('number-field').value;
+  var message = document.getElementById('message-field').value;
+
+  if (name === undefined || name === '') {
+    nameErrors = 'Please enter your name';
+  }
+
+  if (email === undefined || email === '') {
+    emailErrors = 'Please enter your email';
+  } else if (!emailValid()) {
+      emailErrors = 'Please enter a valid email';
+  }
+
+  // if (!(number === undefined || number === '')) {
+  //   if (!phoneNumberValid()) {
+  //     numberErrors.push('Please enter a valid phone number');
+  //   }
+  // }
+
+  if (message === undefined || message === '') {
+    messageErrors = 'Please enter a message';
+  }
+
+  if (nameErrors !== "") {
+    document.getElementById('name-errors').innerHTML = nameErrors;
+    document.getElementById('name-errors').style.visibility = 'visible';
+  }
+  if (emailErrors !== ""){
+    document.getElementById('email-errors').innerHTML = emailErrors;
+    document.getElementById('email-errors').style.visibility = 'visible';
+  }
+  if (numberErrors !== "") {
+    document.getElementById('number-errors').innerHTML = numberErrors;
+    document.getElementById('number-errors').style.visibility = 'visible';
+  }
+  if (messageErrors !== "") {
+    document.getElementById('message-errors').innerHTML = messageErrors;
+    document.getElementById('message-errors').style.visibility = 'visible';
+  }
+  if (nameErrors === "" && emailErrors === "" && numberErrors === "" && messageErrors === "") {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+           // Action to be performed when the document is read;
+        }
+    };
+    xhttp.open('GET', 'https://personal-website-email.herokuapp.com/send-email?name='+name+'&email='+email+'&number='+number+'&message='+message, true);
+    xhttp.send();
+  }
 }
