@@ -57,6 +57,7 @@ function sendContactForm() {
   document.getElementById('email-errors').style.visibility = 'hidden';
   document.getElementById('number-errors').style.visibility = 'hidden';
   document.getElementById('message-errors').style.visibility = 'hidden';
+  document.getElementById('somethingWentWrong').style.display = 'none';
 
   var nameErrors = "";
   var emailErrors = "";
@@ -74,9 +75,10 @@ function sendContactForm() {
 
   if (email === undefined || email === '') {
     emailErrors = 'Please enter your email';
-  } else if (!emailValid()) {
-      emailErrors = 'Please enter a valid email';
   }
+  // } else if (!emailValid()) {
+  //     emailErrors = 'Please enter a valid email';
+  // }
 
   // if (!(number === undefined || number === '')) {
   //   if (!phoneNumberValid()) {
@@ -105,13 +107,25 @@ function sendContactForm() {
     document.getElementById('message-errors').style.visibility = 'visible';
   }
   if (nameErrors === "" && emailErrors === "" && numberErrors === "" && messageErrors === "") {
+    var contactButton = document.getElementById('contact-button');
+    var loader = document.getElementById('loader');
+    var sent = document.getElementById('sent');
+    var somethingWentWrong = document.getElementById('somethingWentWrong');
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-           // Action to be performed when the document is read;
+        if (this.readyState == 4 ) {
+           loader.style.display = 'none';
+           if (this.status == 200) {
+             sent.style.display = 'block';
+           } else {
+             contactButton.style.display = 'block';
+             somethingWentWrong.style.display = 'block';
+           }
         }
     };
     xhttp.open('GET', 'https://personal-website-email.herokuapp.com/send-email?name='+name+'&email='+email+'&number='+number+'&message='+message, true);
     xhttp.send();
+    contactButton.style.display = 'none';
+    loader.style.display = 'block';
   }
 }
