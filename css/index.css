@@ -16,7 +16,8 @@ p, h1, h3, label {
 
 #nav-bar {
   width: 85%;
-  margin: auto;
+  margin-left: 7.5%;
+  display: inline-block;
   margin-top: 2.5%;
   height: 7.5%;
 }
@@ -70,6 +71,19 @@ p, h1, h3, label {
   height: 100%;
 }
 
+#home-info {
+  /* display: block;
+  margin: auto;
+  text-align: center;
+  width: 50%; */
+  width: 50%;
+  margin-left: 25%;
+  display: inline-block;
+  text-align: center;
+  /* margin-top: 2.5%; */
+  /* height: 7.5%; */
+}
+
 #profile-pic {
   height: 40%;
   margin-top: 20px;
@@ -94,8 +108,12 @@ p, h1, h3, label {
   margin-top: 10px;
 }
 
+#contact-info label {
+  float: left;
+}
+
 #social-media-container {
-  margin-top: 30px;
+  display: inline-block;
 }
 
 #contact-container {
@@ -115,6 +133,10 @@ p, h1, h3, label {
   width: 100%;
 }
 
+#contact-form p {
+  text-align: left;
+}
+
 .required {
   color: red;
 }
@@ -126,6 +148,7 @@ p, h1, h3, label {
   border: 0px;
   color: white;
   margin-top: 10px;
+  cursor: pointer;
 }
 
 .errors {
@@ -133,4 +156,24 @@ p, h1, h3, label {
   margin-bottom: 15px;
   color: red;
   visibility: hidden;
+}
+
+.loader {
+    border: 5px solid #f3f3f3; /* Light grey */
+    border-top: 5px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    float: right;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.sent {
+  float: right;
+  display: none;
 }
