@@ -66,22 +66,12 @@ p, h1, h3, label {
 }
 
 .info-elements {
-  display: table-cell;
-  vertical-align: middle;
-  height: 100%;
+  text-align: center;
 }
 
 #home-info {
-  /* display: block;
+  width: 20%;
   margin: auto;
-  text-align: center;
-  width: 50%; */
-  width: 50%;
-  margin-left: 25%;
-  display: inline-block;
-  text-align: center;
-  /* margin-top: 2.5%; */
-  /* height: 7.5%; */
 }
 
 #profile-pic {
